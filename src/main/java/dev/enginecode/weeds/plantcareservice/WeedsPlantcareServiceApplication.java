@@ -1,4 +1,4 @@
-package com.example.weeds.plantcareservice;
+package dev.enginecode.weeds.plantcareservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
