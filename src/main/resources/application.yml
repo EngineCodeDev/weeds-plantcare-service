@@ -1,1 +1,7 @@
-
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5944/weeds_db
+    username: weeds_user
+    password: weeds_pass123
+server:
+  port: 8090
