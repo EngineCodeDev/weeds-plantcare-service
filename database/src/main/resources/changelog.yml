@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-weeds-plant-entity-ddl
+      author: Tom Zoladz
+      context: ddl
+      changes:
+        - sqlFile:
+            path: changes/001-weeds-plant-entity-ddl.sql
+      rollback:
+        - sqlFile:
+            path: changes/001-weeds-plant-entity-ddl-rollback.sql

@@ -1,4 +1,0 @@
-CREATE USER weeds_user WITH PASSWORD 'weeds_pass123';
-CREATE DATABASE weeds_db;
-\c weeds_db;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO weeds_user;

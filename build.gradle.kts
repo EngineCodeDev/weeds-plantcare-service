@@ -8,6 +8,20 @@ plugins {
 group = "dev.enginecode.weeds"
 version = "0.0.1-SNAPSHOT"
 
+val dbRegion = project.findProperty("db.dbRegion.active") ?: ""
+val dbData = mutableMapOf(
+		"dbUrl" to (project.findProperty("db.$dbRegion.dbUrl") ?: "jdbc:postgresql://localhost:5432/weeds_db"),
+		"dbUser" to (project.findProperty("db.$dbRegion.dbUser") ?: "weeds_user"),
+		"dbPass" to (project.findProperty("db.$dbRegion.dbPass") ?: "weeds_pass123"),
+		"dbSchema" to (project.findProperty("db.$dbRegion.dbSchema") ?: "public"),
+		"dbAdmUser" to (project.findProperty("db.$dbRegion.dbAdmUser") ?: "weeds_admin"),
+		"dbAdmPass" to (project.findProperty("db.$dbRegion.dbAdmPass") ?: "weeds_pass123")
+)
+
+dbData.keys.forEach{
+	extra[it] = dbData[it]
+}
+
 java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
@@ -26,9 +40,9 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.postgresql:postgresql:42.6.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("org.postgresql:postgresql")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
