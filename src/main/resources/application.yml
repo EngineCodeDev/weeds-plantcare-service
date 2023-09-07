@@ -5,3 +5,5 @@ spring:
     password: weeds_pass123
 server:
   port: 8090
+  servlet:
+    context-path: /plantcare-service
