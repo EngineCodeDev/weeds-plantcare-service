@@ -1,5 +1,11 @@
+import org.apache.commons.lang3.RandomStringUtils
+import org.apache.tools.ant.Project
+import org.apache.tools.ant.taskdefs.SQLExec
+
 plugins {
 	java
+	id("idea")
+	id("groovy")
 	id("org.springframework.boot") version "3.1.3"
 	id("io.spring.dependency-management") version "1.1.3"
 	id("maven-publish")
@@ -11,13 +17,16 @@ version = "0.0.1-SNAPSHOT"
 val dbRegion = project.findProperty("db.dbRegion.active") ?: ""
 val dbData = mutableMapOf(
 		"dbUrl" to (project.findProperty("db.$dbRegion.dbUrl") ?: "jdbc:postgresql://localhost:5432/weeds_db"),
+		"dbSchema" to (project.findProperty("db.$dbRegion.dbSchema") ?: "app_test"),
 		"dbUser" to (project.findProperty("db.$dbRegion.dbUser") ?: "weeds_user"),
 		"dbPass" to (project.findProperty("db.$dbRegion.dbPass") ?: "weeds_pass123"),
-		"dbSchema" to (project.findProperty("db.$dbRegion.dbSchema") ?: "public"),
 		"dbAdmUser" to (project.findProperty("db.$dbRegion.dbAdmUser") ?: "weeds_admin"),
-		"dbAdmPass" to (project.findProperty("db.$dbRegion.dbAdmPass") ?: "weeds_pass123")
+		"dbAdmPass" to (project.findProperty("db.$dbRegion.dbAdmPass") ?: "weeds_pass123"),
+		"dbGenRandomSchemaSuffix" to (project.findProperty("db.$dbRegion.dbGenRandomSchemaSuffix")?.toString()?.toBoolean() ?: false)
 )
-
+if (dbData["dbGenRandomSchemaSuffix"] as Boolean) {
+	dbData["dbSchema"] = "${dbData["dbSchema"]}${generateRandomSuffix()}"
+}
 dbData.keys.forEach{
 	extra[it] = dbData[it]
 }
@@ -26,9 +35,20 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
+buildscript {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.apache.commons:commons-lang3:3.13.0")
+	}
+}
+
 configurations {
-	compileOnly {
-		extendsFrom(configurations.annotationProcessor.get())
+	create("intestImplementation") {
+		extendsFrom(configurations["testImplementation"])
+		isCanBeResolved = true
 	}
 }
 
@@ -39,12 +59,79 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.postgresql:postgresql:42.6.0")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.spockframework:spock-core:2.4-M1-groovy-4.0")
+	testImplementation("org.spockframework:spock-spring:2.4-M1-groovy-4.0")
+}
+
+
+sourceSets {
+	create("intest") {
+		groovy {
+			setSrcDirs(listOf("$projectDir/src/intest/groovy"))
+		}
+		resources {
+			setSrcDirs(listOf("$projectDir/src/intest/resources"))
+		}
+		compileClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["intestImplementation"]
+		runtimeClasspath += sourceSets["main"].output + sourceSets["test"].output + configurations["intestImplementation"]
+	}
+}
+
+
+val intest by tasks.creating(Test::class) {
+	group = "verification"
+	description = "Runs integration tests."
+
+	testClassesDirs = sourceSets["intest"].output.classesDirs
+	classpath = sourceSets["intest"].runtimeClasspath
+
+	dependsOn("initDB")
+	finalizedBy("dropDB")
+
+	jvmArgs = listOf(
+			"-Dspring.datasource.url=${dbData["dbUrl"]}",
+			"-Dspring.datasource.username=${dbData["dbUser"]}",
+			"-Dspring.datasource.password=${dbData["dbPass"]}",
+			"-Dspring.datasource.hikari.schema=${dbData["dbSchema"]}"
+	)
+}
+
+tasks.register("initDB") {
+	description = "Initialize database structures used in Integration Tests"
+
+	val liquibaseClean = project(":database").tasks.getByName("clean")
+	dependsOn(liquibaseClean)
+	doFirst {
+		logger.lifecycle("Initializing database structures")
+		runScript(
+				"${project.projectDir}/src/intest/resources/db/setup-sql/init-db.sql",
+				"@db_schema@" to (dbData["dbSchema"] as String),
+				"@db_user@" to (dbData["dbUser"] as String)
+		)
+	}
+
+	val liquibaseUpdate = project(":database").tasks.getByName("update")
+	finalizedBy(liquibaseUpdate)
+}
+
+tasks.register("dropDB") {
+	description = "Drop all database structures used in Integration Tests"
+
+	doFirst {
+		logger.lifecycle("Dropping database structures")
+		runScript(
+				"${project.projectDir}/src/intest/resources/db/setup-sql/drop-db.sql",
+				"@db_schema@" to (dbData["dbSchema"] as String),
+				"@db_user@" to (dbData["dbUser"] as String)
+		)
+	}
 }
 
 tasks.withType<Test> {
@@ -74,4 +161,32 @@ publishing {
 	repositories {
 		mavenLocal()
 	}
+}
+
+
+fun runScript(scriptPath: String, vararg replacementPairs: Pair<String, String>) {
+	val sqlExec = SQLExec()
+	sqlExec.project = Project()
+	sqlExec.project.init()
+
+	sqlExec.setDriver("org.postgresql.Driver")
+	sqlExec.createClasspath().setPath(project.sourceSets["main"].runtimeClasspath.asPath)
+	sqlExec.url = dbData["dbUrl"] as String
+	sqlExec.setUserid(dbData["dbAdmUser"] as String)
+	sqlExec.password = dbData["dbAdmPass"] as String
+	sqlExec.setPrint(true)
+
+	val scriptFile = file(scriptPath)
+	var script = scriptFile.readText()
+	replacementPairs.forEach {
+		script = script.replace(it.first, it.second)
+	}
+	sqlExec.addText(script)
+	sqlExec.execute()
+}
+
+fun generateRandomSuffix(): String {
+	val allowedChars = "0123456789abcdefghijklmnopqrstuvwxyz"
+	val suffixLength = 5
+	return RandomStringUtils.random(suffixLength, allowedChars)
 }

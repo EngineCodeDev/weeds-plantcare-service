@@ -21,8 +21,8 @@ dependencies {
 }
 
 val dbUrl = project.rootProject.extra["dbUrl"]
-val dbUser = project.rootProject.extra["dbUser"]
 val dbSchema = project.rootProject.extra["dbSchema"]
+val dbUser = project.rootProject.extra["dbUser"]
 val dbAdmUser = project.rootProject.extra["dbAdmUser"]
 val dbAdmPass = project.rootProject.extra["dbAdmPass"]
 
