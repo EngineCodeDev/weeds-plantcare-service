@@ -1,0 +1,3 @@
+REVOKE USAGE ON SCHEMA @db_schema@ FROM @db_user@;
+
+DROP SCHEMA IF EXISTS @db_schema@ CASCADE;
