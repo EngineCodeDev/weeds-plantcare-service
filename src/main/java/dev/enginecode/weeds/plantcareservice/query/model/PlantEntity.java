@@ -12,4 +12,23 @@ public class PlantEntity {
     private String name;
 
 
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+
+    public void setId(final UUID id) {
+        this.id = id;
+    }
+
+    void setName(final String name) {
+        this.name = name;
+    }
+
+
 }

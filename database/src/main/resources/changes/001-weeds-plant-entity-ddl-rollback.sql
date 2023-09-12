@@ -1,0 +1,1 @@
+DROP TABLE ps_plant_entity CASCADE;
