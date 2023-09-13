@@ -1,6 +1,6 @@
-package dev.enginecode.weeds.common.query.handler;
+package dev.enginecode.weeds.plantcareservice.common.query.handler;
 
-import dev.enginecode.weeds.common.query.exception.ApplicationErrorCode;
+import dev.enginecode.weeds.plantcareservice.common.query.exception.ApplicationErrorCode;
 
 class ApplicationErrorResponse {
     private final ApplicationErrorCode applicationErrorCode;

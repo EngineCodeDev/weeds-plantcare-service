@@ -1,4 +1,4 @@
-package dev.enginecode.weeds.common.query.exception;
+package dev.enginecode.weeds.plantcareservice.common.query.exception;
 
 public class ResourceNotFoundException extends RuntimeException {
     private ApplicationErrorCode applicationErrorCode;

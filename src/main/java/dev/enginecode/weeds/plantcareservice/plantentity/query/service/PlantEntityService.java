@@ -1,9 +1,9 @@
-package dev.enginecode.weeds.plantcareservice.query.service;
+package dev.enginecode.weeds.plantcareservice.plantentity.query.service;
 
-import dev.enginecode.weeds.common.query.exception.ApplicationErrorCode;
-import dev.enginecode.weeds.common.query.exception.ResourceNotFoundException;
-import dev.enginecode.weeds.plantcareservice.query.model.PlantEntity;
-import dev.enginecode.weeds.plantcareservice.query.model.PlantJpaRepository;
+import dev.enginecode.weeds.plantcareservice.common.query.exception.ApplicationErrorCode;
+import dev.enginecode.weeds.plantcareservice.common.query.exception.ResourceNotFoundException;
+import dev.enginecode.weeds.plantcareservice.plantentity.query.model.PlantJpaRepository;
+import dev.enginecode.weeds.plantcareservice.plantentity.query.model.PlantEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
