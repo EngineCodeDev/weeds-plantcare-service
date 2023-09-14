@@ -1,7 +1,7 @@
-package dev.enginecode.weeds.plantcareservice.query.ui;
+package dev.enginecode.weeds.plantcareservice.plantentity.query.ui;
 
-import dev.enginecode.weeds.plantcareservice.query.model.PlantEntity;
-import dev.enginecode.weeds.plantcareservice.query.service.PlantEntityService;
+import dev.enginecode.weeds.plantcareservice.plantentity.query.model.PlantEntity;
+import dev.enginecode.weeds.plantcareservice.plantentity.query.service.PlantEntityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
