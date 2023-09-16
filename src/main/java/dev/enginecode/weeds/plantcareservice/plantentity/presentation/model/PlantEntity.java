@@ -1,4 +1,4 @@
-package dev.enginecode.weeds.plantcareservice.plantentity.query.model;
+package dev.enginecode.weeds.plantcareservice.plantentity.presentation.model;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package dev.enginecode.weeds.plantcareservice.plantentity.query.error;
+package dev.enginecode.weeds.plantcareservice.plantentity.application.errors;
 
 
 import dev.enginecode.eccommons.exception.ErrorCode;

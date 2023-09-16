@@ -1,9 +1,9 @@
-package dev.enginecode.weeds.plantcareservice.plantentity.query.service;
+package dev.enginecode.weeds.plantcareservice.plantentity.presentation.service;
 
 import dev.enginecode.eccommons.exception.ResourceNotFoundException;
-import dev.enginecode.weeds.plantcareservice.plantentity.query.error.ApplicationErrorCode;
-import dev.enginecode.weeds.plantcareservice.plantentity.query.model.PlantJpaRepository;
-import dev.enginecode.weeds.plantcareservice.plantentity.query.model.PlantEntity;
+import dev.enginecode.weeds.plantcareservice.plantentity.application.errors.ApplicationErrorCode;
+import dev.enginecode.weeds.plantcareservice.plantentity.presentation.model.PlantJpaRepository;
+import dev.enginecode.weeds.plantcareservice.plantentity.presentation.model.PlantEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
