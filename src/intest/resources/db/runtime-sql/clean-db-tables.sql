@@ -1,0 +1,1 @@
+DELETE FROM ps_plant_entity;
