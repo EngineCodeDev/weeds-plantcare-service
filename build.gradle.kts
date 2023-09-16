@@ -62,6 +62,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.postgresql:postgresql:42.6.0")
+	implementation("dev.enginecode:ec-commons:0.0.1-SNAPSHOT")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
