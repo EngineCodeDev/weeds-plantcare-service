@@ -6,7 +6,7 @@ import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.http.HttpStatus
 
-class GetPlantEntityEndpointTest extends IntestSpecification {
+class GetPlantEntityViewEndpointTest extends IntestSpecification {
 
     private static final def ALDER_ID = "ccabd618-b415-4457-b355-aada204f6b8c"
     private static final def NON_EXISTING_PLANT_ID = "00000000-1111-1111-1111-000000000000"

@@ -1,15 +1,15 @@
-package dev.enginecode.weeds.plantcareservice.plantentity.application.errors;
+package dev.enginecode.weeds.plantcareservice.plantentity.presentation.errors;
 
 
 import dev.enginecode.eccommons.exception.ErrorCode;
 import org.springframework.http.HttpStatus;
 
-public enum ApplicationErrorCode implements ErrorCode {
-    PLANT_ENTITY_NOT_MODIFIED(HttpStatus.NOT_MODIFIED);
+public enum PresentationErrorCode implements ErrorCode {
+    PLANT_ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND);
 
     private final HttpStatus httpStatus;
 
-    ApplicationErrorCode(HttpStatus httpStatus) {
+    PresentationErrorCode(HttpStatus httpStatus) {
         this.httpStatus = httpStatus;
     }
 
