@@ -1,12 +1,14 @@
-package dev.enginecode.weeds.plantcareservice.plantentity.presentation.model;
+package dev.enginecode.weeds.plantcareservice.plantentity.infrastructure.persistence.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.UUID;
 
 @Entity
 @Table(name = "ps_plant_entity")
-public class PlantEntity {
+public class PlantEntityRecord {
     @Id
     private UUID id;
     private String name;
