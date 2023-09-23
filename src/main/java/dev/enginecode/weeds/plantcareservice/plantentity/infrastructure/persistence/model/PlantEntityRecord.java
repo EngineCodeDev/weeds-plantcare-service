@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ps_plant_entity")
+@Table(name = "ps_plant_entity_test")
 public class PlantEntityRecord {
     @Id
     private UUID id;
