@@ -10,15 +10,15 @@ import java.util.UUID;
 
 @Repository
 public class GetPlantEntityViewAdapter implements GetPlantEntityViewPort {
-    JsonRepository repository;
+    JsonRepository<UUID> repository;
 
-    GetPlantEntityViewAdapter(JsonRepository repository) {
+    GetPlantEntityViewAdapter(JsonRepository<UUID> repository) {
         this.repository = repository;
     }
 
     @Override
     public PlantEntityView findById(UUID id) {
         PlantEntityRecord record = repository.findById(id, PlantEntityRecord.class);
-        return new PlantEntityView( record.getId(), record.getName() );
+        return new PlantEntityView( record.id(), record.name() );
     }
 }
