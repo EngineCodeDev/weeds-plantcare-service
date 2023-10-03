@@ -37,8 +37,8 @@ class GetPlantEntityViewEndpointTest extends IntestSpecification {
 
         then:
         responseEntity.statusCode == HttpStatus.NOT_FOUND
-        responseEntity.body.code == "PLANT_ENTITY_NOT_FOUND"
-        responseEntity.body.message == "Plant not found!"
+        responseEntity.body.code() == "RESOURCE_NOT_FOUND"
+        responseEntity.body.message() == "Resource with id: '$NON_EXISTING_PLANT_ID' not found!"
     }
 
 }
