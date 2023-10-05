@@ -3,8 +3,8 @@ package dev.enginecode.weeds.plantcareservice.plantentity.presentation.model;
 import java.util.UUID;
 
 public class PlantEntityView {
-    private UUID id;
-    private String name;
+    private final UUID id;
+    private final String name;
 
     public PlantEntityView(UUID id, String name) {
         this.id = id;
