@@ -7,7 +7,7 @@ import dev.enginecode.eccommons.model.Entry;
 import java.util.LinkedHashSet;
 import java.util.UUID;
 
-@TableName("pc_plant_class_view")
+@TableName("gc_plant_class_view")
 public record PlantClassViewRecord(
         UUID id,
         LinkedHashSet<Entry<?>> entries
