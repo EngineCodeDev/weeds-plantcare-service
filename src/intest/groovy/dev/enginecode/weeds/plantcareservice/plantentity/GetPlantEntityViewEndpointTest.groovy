@@ -19,7 +19,7 @@ class GetPlantEntityViewEndpointTest extends IntestSpecification {
     def "should retrieve the plant entity from database"() {
         when:
         def responseEntity = testRestTemplate.getForEntity(
-                "http://localhost:$port/plantcare-service/plantentity/$ALDER_ID",
+                "http://localhost:$port/plantcare-service/plant-entities/$ALDER_ID",
                 String.class
         )
 
@@ -30,7 +30,7 @@ class GetPlantEntityViewEndpointTest extends IntestSpecification {
     def "should throw exception when plant entity with the given id not found"() {
         when:
         def responseEntity = testRestTemplate.getForEntity(
-                "http://localhost:$port/plantcare-service/plantentity/$NON_EXISTING_PLANT_ID",
+                "http://localhost:$port/plantcare-service/plant-entities/$NON_EXISTING_PLANT_ID",
                 ErrorResponse.class
         )
         println(responseEntity.body)

@@ -1,0 +1,57 @@
+{
+  "id": "0f0a6edc-edbf-4ea0-a73f-eef4cc43105e",
+  "entries": [
+    {
+      "key": "species",
+      "value": "Quercus robur",
+      "type": "string"
+    },
+    {
+      "key": "genus",
+      "value": "Quercus",
+      "type": "string"
+    },
+    {
+      "key": "family",
+      "value": "Fagaceae",
+      "type": "string"
+    },
+    {
+      "key": "commonNames",
+      "value": [
+        "Pedunculate oak",
+        "Common oak",
+        "European oak",
+        "English oak"
+      ],
+      "type": "string_array"
+    },
+    {
+      "key": "origin",
+      "value": [
+        "origin_europe",
+        "origin_asia"
+      ],
+      "type": "enum_array"
+    },
+    {
+      "key": "lifecycle",
+      "value": "lifecycle_perennial",
+      "type": "enum"
+    },
+    {
+      "key": "wikiLinks",
+      "value": [
+        "https://en.wikipedia.org/wiki/Quercus_robur"
+      ],
+      "type": "string_array"
+    },
+    {
+      "key": "imageSource",
+      "value": [
+        "https://en.wikipedia.org/wiki/Quercus_robur#/media/File:Quercus_robur.jpg"
+      ],
+      "type": "string_array"
+    }
+  ]
+}

@@ -5,8 +5,8 @@ import dev.enginecode.eccommons.infrastructure.json.model.TableName;
 
 import java.util.UUID;
 
-@TableName("ps_plant_entity")
-public record PlantEntityRecord(
+@TableName("ps_plant_entity_view")
+public record PlantEntityViewRecord(
         UUID id,
         String name
 ) implements TableAnnotatedRecord {}
