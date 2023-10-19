@@ -5,17 +5,17 @@ databaseChangeLog:
       context: ddl
       changes:
         - sqlFile:
-            path: changes/001-weeds-plant-entity-ddl.sql
+            path: changes/001-ps-plant-entity-ddl.sql
       rollback:
         - sqlFile:
-            path: changes/001-weeds-plant-entity-ddl-rollback.sql
+            path: changes/001-ps-plant-entity-ddl-rollback.sql
   - changeSet:
       id: 002-weeds-plant-class-ddl
       author: Tom Zoladz
       context: ddl
       changes:
         - sqlFile:
-            path: changes/002-weeds-plant-class-ddl.sql
+            path: changes/002-pc-plant-class-ddl.sql
       rollback:
         - sqlFile:
-            path: changes/002-weeds-plant-class-ddl-rollback.sql
+            path: changes/002-pc-plant-class-ddl-rollback.sql
