@@ -4,17 +4,20 @@
     {
       "key": "species",
       "value": "Quercus robur",
-      "type": "string"
+      "type": "string",
+      "info": ""
     },
     {
       "key": "genus",
       "value": "Quercus",
-      "type": "string"
+      "type": "string",
+      "info": ""
     },
     {
       "key": "family",
       "value": "Fagaceae",
-      "type": "string"
+      "type": "string",
+      "info": ""
     },
     {
       "key": "commonNames",
@@ -24,34 +27,54 @@
         "European oak",
         "English oak"
       ],
-      "type": "string_array"
+      "type": "string_array",
+      "info": ""
     },
     {
       "key": "origin",
       "value": [
-        "Europe",
-        "Asia"
+        {
+          "key": "origin_europe",
+          "value": "Europe",
+          "type": "string",
+          "info": ""
+        },
+        {
+          "key": "origin_asia",
+          "value": "Asia",
+          "type": "string",
+          "info": ""
+        }
       ],
-      "type": "enum_array"
+      "type": "enum_array",
+      "info": ""
     },
     {
       "key": "lifecycle",
-      "value": "Perennial",
-      "type": "enum"
+      "value": {
+        "key": "lifecycle_perennial",
+        "value": "Perennial",
+        "type": "string",
+        "info": ""
+      },
+      "type": "enum",
+      "info": ""
     },
     {
       "key": "wikiLinks",
       "value": [
         "https://en.wikipedia.org/wiki/Quercus_robur"
       ],
-      "type": "string_array"
+      "type": "string_array",
+      "info": ""
     },
     {
       "key": "imageSource",
       "value": [
         "https://en.wikipedia.org/wiki/Quercus_robur#/media/File:Quercus_robur.jpg"
       ],
-      "type": "string_array"
+      "type": "string_array",
+      "info": ""
     }
   ]
 }
