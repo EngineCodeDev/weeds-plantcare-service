@@ -15,7 +15,17 @@ databaseChangeLog:
       context: ddl
       changes:
         - sqlFile:
-            path: changes/002-pc-plant-class-ddl.sql
+            path: changes/002-gc-plant-class-ddl.sql
       rollback:
         - sqlFile:
-            path: changes/002-pc-plant-class-ddl-rollback.sql
+            path: changes/002-gc-plant-class-ddl-rollback.sql
+  - changeSet:
+      id: 003-gc-enum-dictionary-ddl
+      author: Grzegorz Fira
+      context: ddl
+      changes:
+        - sqlFile:
+            path: changes/003-gc-json-schema-ddl.sql
+      rollback:
+        - sqlFile:
+            path: changes/003-gc-json-schema-ddl-rollback.sql
