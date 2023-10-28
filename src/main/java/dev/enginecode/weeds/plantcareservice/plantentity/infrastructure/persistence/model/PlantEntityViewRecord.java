@@ -9,4 +9,4 @@ import java.util.UUID;
 public record PlantEntityViewRecord(
         UUID id,
         String name
-) implements TableAnnotatedRecord {}
+) implements TableAnnotatedRecord<UUID> {}
