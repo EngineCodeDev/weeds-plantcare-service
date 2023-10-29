@@ -1,5 +1,7 @@
 # Weeds Plantcare Service
 
+![Plant logo](./docs/img/plant-logo.png)
+
 Plants management application. More info coming soon!
 
 
