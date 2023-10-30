@@ -1,18 +1,22 @@
 import org.apache.commons.lang3.RandomStringUtils
 import org.apache.tools.ant.Project
 import org.apache.tools.ant.taskdefs.SQLExec
+import java.util.*
 
 plugins {
 	java
 	id("idea")
 	id("groovy")
-	id("org.springframework.boot") version "3.1.3"
+	id("org.springframework.boot") version "3.1.5"
 	id("io.spring.dependency-management") version "1.1.3"
 	id("maven-publish")
 }
 
 group = "dev.enginecode.weeds"
 version = "0.0.1-SNAPSHOT"
+
+val properties = Properties()
+file("gradle-local.properties").takeIf { it.exists() }?.inputStream()?.use { properties.load(it) }
 
 val dbRegion = project.findProperty("db.dbRegion.active") ?: ""
 val dbData = mutableMapOf(
@@ -55,18 +59,26 @@ configurations {
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven {
+		name = "EngineCodeGitHubPackages"
+		url = uri("https://maven.pkg.github.com/EngineCodeDev/packages")
+		credentials {
+			username = project.findProperty("gpr.user")?.toString() ?: properties.getProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+			password = project.findProperty("gpr.key")?.toString() ?: properties.getProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+		}
+	}
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("org.springframework.boot:spring-boot-starter-jdbc")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-web:3.1.5")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc:3.1.5")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.5")
 	implementation("org.postgresql:postgresql:42.6.0")
 	implementation("dev.enginecode:ec-commons:0.0.1-SNAPSHOT")
 
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	developmentOnly("org.springframework.boot:spring-boot-devtools:3.1.5")
 
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.5")
 	testImplementation("org.spockframework:spock-core:2.4-M1-groovy-4.0")
 	testImplementation("org.spockframework:spock-spring:2.4-M1-groovy-4.0")
 }
@@ -161,6 +173,14 @@ publishing {
 
 	repositories {
 		mavenLocal()
+		maven {
+			name = "EngineCodeGitHubPackages"
+			url = uri("https://maven.pkg.github.com/EngineCodeDev/packages")
+			credentials {
+				username = project.findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
+				password = project.findProperty("gpr.key")?.toString() ?: System.getenv("GITHUB_TOKEN")
+			}
+		}
 	}
 }
 
