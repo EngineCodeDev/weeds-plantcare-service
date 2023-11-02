@@ -25,7 +25,7 @@ databaseChangeLog:
       context: ddl
       changes:
         - sqlFile:
-            path: changes/003-gc-json-schema-ddl.sql
+            path: changes/003-gc-data-model-ddl.sql
       rollback:
         - sqlFile:
-            path: changes/003-gc-json-schema-ddl-rollback.sql
+            path: changes/003-gc-data-model-ddl-rollback.sql
