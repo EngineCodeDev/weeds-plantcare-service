@@ -9,3 +9,9 @@ CREATE TABLE gc_plant_class_view(
     data JSONB
     );
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE gc_plant_class_view TO @db_user@;
+
+CREATE TABLE gc_plant_class_waiting(
+    id UUID PRIMARY KEY,
+    data JSONB
+    );
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE gc_plant_class_waiting TO @db_user@;
