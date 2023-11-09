@@ -1,6 +1,7 @@
 {
   "id": "8fd1980d-3151-4d00-8495-5a10bf8e7099",
   "entrySettings": {
+    "status": {"type":  "enum_key", "format": "dictionary", "optionsRef": null, "required": true, "readOnly": false},
     "genus": {"type": "string", "format": null, "optionsRef": null, "required": true, "readOnly": true},
     "family": {"type": "string", "format": null, "optionsRef": null, "required": true, "readOnly": true},
     "commonNames": {"type": "string_array", "format": null, "optionsRef": null, "required": true, "readOnly": false},

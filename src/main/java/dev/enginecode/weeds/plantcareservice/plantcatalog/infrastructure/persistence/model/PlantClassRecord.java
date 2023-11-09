@@ -7,7 +7,7 @@ import dev.enginecode.eccommons.structures.model.Entry;
 import java.util.LinkedHashSet;
 import java.util.UUID;
 
-@TableName("gc_plant_class_waiting")
+@TableName("gc_plant_class")
 public record PlantClassRecord(
         UUID id,
         LinkedHashSet<String> groups,
