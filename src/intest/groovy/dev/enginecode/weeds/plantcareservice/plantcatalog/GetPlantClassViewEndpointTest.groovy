@@ -9,17 +9,60 @@ import org.springframework.http.HttpStatus
 class GetPlantClassViewEndpointTest extends IntestSpecification {
 
     private static final def PLANT_ID = "e8e31639-bd65-46af-a594-fa59aa510bdf"
-    private static final EXPECTED_JSON = """
+    private static final EXPECTED_PLANT_CLASS_VIEW_RESPONSE = """
         {
-          "id": "e8e31639-bd65-46af-a594-fa59aa510bdf",
-          "entries": [
-            {"key": "Key1", "value": "Value1", "type": "string"},
-            {"key": "Key2", "value": "Value2", "type": "string"},
-            {"key": "Key3", "value": "Value3", "type": "string"}
+          "items": [
+            {
+              "id": "e8e31639-bd65-46af-a594-fa59aa510bdf",
+              "entries": [
+                {"key": "Key1", "value": "Value1", "type": "string"},
+                {"key": "Key2", "value": "Value2", "type": "string"},
+                {"key": "Key3", "value": "Value3", "type": "string"}
+              ]
+            }
           ]
         }
     """
-    private static final def NON_EXISTING_PLANT_ID = "00000000-1111-1111-1111-000000000000"
+    private static final def NON_EXISTING_PLANT_CLASS_VIEW_ID = "00000000-1111-1111-1111-000000000000"
+
+    private static final def EXPECTED_ALL_PLANT_CLASS_VIEWS_RESPONSE = """
+        {
+          "items": [
+            {
+              "id": "6ea8fed8-2d86-4e0c-8593-d33314a86747", 
+              "entries": [
+                {"key": "Key1", "value": "Value1", "type": "string", "info": null}, 
+                {"key": "Key2", "value": "Value2", "type": "string", "info": null},
+                {"key": "Key3", "value": "Value3", "type": "string", "info": null}
+              ]
+            },
+            {
+              "id": "ccabd618-b415-4457-b355-aada204f6b8c", 
+              "entries": [
+                {"key": "Key1", "value": "Value1", "type": "string", "info": null}, 
+                {"key": "Key2", "value": "Value2", "type": "string", "info": null},
+                {"key": "Key3", "value": "Value3", "type": "string", "info": null}
+                ]
+            },
+            {
+              "id": "0a0279a1-6182-4ad6-ae81-fd783528ac18", 
+              "entries": [
+                {"key": "Key1", "value": "Value1", "type": "string", "info": null}, 
+                {"key": "Key2", "value": "Value2", "type": "string", "info": null},
+                {"key": "Key3", "value": "Value3", "type": "string", "info": null}
+                ]
+            },
+            {
+              "id": "e8e31639-bd65-46af-a594-fa59aa510bdf", 
+              "entries": [
+                {"key": "Key1", "value": "Value1", "type": "string", "info": null}, 
+                {"key": "Key2", "value": "Value2", "type": "string", "info": null},
+                {"key": "Key3", "value": "Value3", "type": "string", "info": null}
+              ]
+            }
+          ]
+        }
+    """
 
     def setup() {
         dbAdmin.runSqlFile("db/runtime-sql/plant-classes-dml.sql")
@@ -31,23 +74,33 @@ class GetPlantClassViewEndpointTest extends IntestSpecification {
                 "http://localhost:$port/plantcare-service/plant-classes/$PLANT_ID",
                 String.class
         )
-        println(responseEntity.body)
+
         then:
-        JSONAssert.assertEquals(EXPECTED_JSON, responseEntity.body, JSONCompareMode.LENIENT)
+        JSONAssert.assertEquals(EXPECTED_PLANT_CLASS_VIEW_RESPONSE, responseEntity.body, JSONCompareMode.LENIENT)
+    }
+
+    def "should get all plant classes from database"() {
+        when:
+        def responseEntity = testRestTemplate.getForEntity(
+                "http://localhost:$port/plantcare-service/plant-classes",
+                String.class
+        )
+
+        then:
+        JSONAssert.assertEquals(EXPECTED_ALL_PLANT_CLASS_VIEWS_RESPONSE, responseEntity.body, JSONCompareMode.LENIENT)
     }
 
     def "should throw exception when plant class with the given id not found"() {
         when:
         def responseEntity = testRestTemplate.getForEntity(
-                "http://localhost:$port/plantcare-service/plant-classes/$NON_EXISTING_PLANT_ID",
+                "http://localhost:$port/plantcare-service/plant-classes/$NON_EXISTING_PLANT_CLASS_VIEW_ID",
                 ErrorResponse.class
         )
-        println(responseEntity.body)
 
         then:
         responseEntity.statusCode == HttpStatus.NOT_FOUND
         responseEntity.body.code() == "RESOURCE_NOT_FOUND"
-        responseEntity.body.message() == "Resource with id: '$NON_EXISTING_PLANT_ID' not found!"
+        responseEntity.body.message() == "Resource with id: '$NON_EXISTING_PLANT_CLASS_VIEW_ID' not found!"
     }
 }
 
