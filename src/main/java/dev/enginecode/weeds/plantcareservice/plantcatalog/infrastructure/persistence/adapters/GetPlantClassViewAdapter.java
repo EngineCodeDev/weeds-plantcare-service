@@ -6,6 +6,7 @@ import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.Pla
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetPlantClassViewPort;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -20,5 +21,13 @@ public class GetPlantClassViewAdapter implements GetPlantClassViewPort {
     public PlantClassView findById(UUID id) {
         PlantClassViewRecord record = repository.findById(id, PlantClassViewRecord.class);
         return new PlantClassView( record.id(), record.entries() );
+    }
+
+    @Override
+    public List<PlantClassView> findAll() {
+        List<PlantClassViewRecord> records = repository.findAll(PlantClassViewRecord.class);
+        return records.stream()
+                .map(record -> new PlantClassView(record.id(), record.entries()))
+                .toList();
     }
 }

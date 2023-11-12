@@ -1,5 +1,6 @@
 package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.controller;
 
+import dev.enginecode.eccommons.structures.model.Response;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.handlers.GetPlantClassViewQueryHandler;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.PlantClassView;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.GetPlantClassViewQuery;
@@ -19,8 +20,13 @@ public class GetPlantClassViewEndpoint {
         this.handler = handler;
     }
 
+    @GetMapping
+    Response<PlantClassView> getAll() {
+        return handler.handle(GetPlantClassViewQuery.all());
+    }
+
     @GetMapping("/{id}")
-    PlantClassView getPlantClass(@PathVariable UUID id) {
-        return handler.handle(GetPlantClassViewQuery.fromId(id));
+    Response<PlantClassView> getById(@PathVariable UUID id) {
+        return handler.handle(GetPlantClassViewQuery.byId(id));
     }
 }
