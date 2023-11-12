@@ -1,6 +1,7 @@
 package dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.handlers;
 
 import dev.enginecode.eccommons.cqrs.query.QueryHandler;
+import dev.enginecode.eccommons.exception.EngineCodeException;
 import dev.enginecode.eccommons.structures.model.DataModel;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.GetDataModelQuery;
@@ -16,8 +17,7 @@ public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetData
     }
 
     @Override
-    public DataModel handle(GetDataModelQuery query) {
+    public DataModel handle(GetDataModelQuery query) throws EngineCodeException {
         return port.findOne();
     }
-
 }

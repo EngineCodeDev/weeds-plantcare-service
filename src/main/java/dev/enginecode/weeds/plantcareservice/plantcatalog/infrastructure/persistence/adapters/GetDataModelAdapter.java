@@ -1,9 +1,9 @@
 package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.adapters;
 
+import dev.enginecode.eccommons.exception.EngineCodeException;
 import dev.enginecode.eccommons.exception.ResourceNotFoundException;
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.eccommons.structures.model.DataModel;
-import dev.enginecode.weeds.plantcareservice.plantcatalog.errors.PlantCatalogErrorCode;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.model.DataModelRecord;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
 import org.springframework.stereotype.Repository;
@@ -20,7 +20,7 @@ public class GetDataModelAdapter implements GetDataModelPort {
     }
 
     @Override
-    public DataModel findOne() {
+    public DataModel findOne() throws EngineCodeException {
         List<DataModelRecord> recordList = repository.findAll(DataModelRecord.class);
         if (!recordList.isEmpty()) {
             DataModelRecord dataModelRecord = recordList.get(0);
@@ -31,7 +31,6 @@ public class GetDataModelAdapter implements GetDataModelPort {
                     dataModelRecord.enumOptions()
             );
         }
-        throw new ResourceNotFoundException("Data Model not found", PlantCatalogErrorCode.RESOURCE_NOT_FOUND);
+        throw new ResourceNotFoundException();
     }
-
 }
