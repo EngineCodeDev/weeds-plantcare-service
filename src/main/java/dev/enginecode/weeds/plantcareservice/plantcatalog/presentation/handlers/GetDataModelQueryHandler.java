@@ -19,5 +19,4 @@ public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetData
     public DataModel handle(GetDataModelQuery query) {
         return port.findOne();
     }
-
 }
