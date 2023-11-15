@@ -1,6 +1,5 @@
 package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.adapters;
 
-import dev.enginecode.eccommons.exception.EngineCodeException;
 import dev.enginecode.eccommons.exception.ResourceNotFoundException;
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.eccommons.structures.model.DataModel;
@@ -20,7 +19,7 @@ public class GetDataModelAdapter implements GetDataModelPort {
     }
 
     @Override
-    public DataModel findOne() throws EngineCodeException {
+    public DataModel findOne() {
         List<DataModelRecord> recordList = repository.findAll(DataModelRecord.class);
         if (!recordList.isEmpty()) {
             DataModelRecord dataModelRecord = recordList.get(0);
