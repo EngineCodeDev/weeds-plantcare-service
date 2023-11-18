@@ -1,4 +1,18 @@
 databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: 000-functions
+      author: Tom Zoladz
+      changes:
+        - sqlFile:
+            path: changes/000-functions.sql
+            splitStatements: false
+            stripComments: false
+            encoding: utf8
+            relativeToChangelogFile: true
+            endDelimiter: ";"
   - changeSet:
       id: 001-weeds-plant-entity-ddl
       author: Tom Zoladz
