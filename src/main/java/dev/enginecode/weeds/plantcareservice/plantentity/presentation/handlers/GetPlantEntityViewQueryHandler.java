@@ -2,8 +2,8 @@ package dev.enginecode.weeds.plantcareservice.plantentity.presentation.handlers;
 
 import dev.enginecode.eccommons.cqrs.query.QueryHandler;
 import dev.enginecode.eccommons.structures.model.Response;
+import dev.enginecode.weeds.plantcareservice.plantentity.presentation.PresentationPorts;
 import dev.enginecode.weeds.plantcareservice.plantentity.presentation.model.PlantEntityView;
-import dev.enginecode.weeds.plantcareservice.plantentity.presentation.ports.GetPlantEntityViewPort;
 import dev.enginecode.weeds.plantcareservice.plantentity.presentation.queries.GetPlantEntityViewQuery;
 import org.springframework.stereotype.Component;
 
@@ -11,9 +11,9 @@ import java.util.List;
 
 @Component
 public class GetPlantEntityViewQueryHandler implements QueryHandler<Response<PlantEntityView>, GetPlantEntityViewQuery> {
-    GetPlantEntityViewPort port;
+    PresentationPorts.GetPlantEntityViewPort port;
 
-    GetPlantEntityViewQueryHandler(GetPlantEntityViewPort port) {
+    GetPlantEntityViewQueryHandler(PresentationPorts.GetPlantEntityViewPort port) {
         this.port = port;
     }
 

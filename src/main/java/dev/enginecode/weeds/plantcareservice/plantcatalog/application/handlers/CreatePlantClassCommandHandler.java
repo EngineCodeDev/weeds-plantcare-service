@@ -2,9 +2,9 @@ package dev.enginecode.weeds.plantcareservice.plantcatalog.application.handlers;
 
 import dev.enginecode.eccommons.cqrs.command.CommandHandler;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.application.commands.CreatePlantClassCommand;
+import dev.enginecode.weeds.plantcareservice.plantcatalog.application.domain.ApplicationPorts;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.application.domain.events.CreatePlantClassEvent;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.application.domain.model.PlantClass;
-import dev.enginecode.weeds.plantcareservice.plantcatalog.application.domain.ports.CreatePlantClassPort;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +15,9 @@ public class CreatePlantClassCommandHandler implements CommandHandler<PlantClass
 
 
     private final ApplicationEventPublisher applicationEventPublisher;
-    private final CreatePlantClassPort port;
+    private final ApplicationPorts.CreatePlantClassPort port;
 
-    CreatePlantClassCommandHandler(ApplicationEventPublisher applicationEventPublisher, CreatePlantClassPort port) {
+    CreatePlantClassCommandHandler(ApplicationEventPublisher applicationEventPublisher, ApplicationPorts.CreatePlantClassPort port) {
         this.applicationEventPublisher = applicationEventPublisher;
         this.port = port;
     }
