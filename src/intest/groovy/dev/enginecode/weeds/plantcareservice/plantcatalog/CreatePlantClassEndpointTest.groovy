@@ -13,6 +13,8 @@ class CreatePlantClassEndpointTest extends IntestSpecification {
           "groups": ["trees"],
           "entries": [
             {"key": "name", "value": "Oak", "type": "string", "info": "Very popular tree"},
+            {"key": "species", "value": "Quercus robur", "type": "string", "info": ""},
+            {"key": "genus", "value": "Quercus", "type": "string", "info": ""},
             {"key": "average age", "value": "300", "type": "string", "info": "It's quite a lot"}
           ]
         }
@@ -24,6 +26,8 @@ class CreatePlantClassEndpointTest extends IntestSpecification {
             {
               "entries": [
                   {"key": "name", "value": "Oak", "type": "string", "info": "Very popular tree"},
+                  {"key": "species", "value": "Quercus robur", "type": "string", "info": ""},
+                  {"key": "genus", "value": "Quercus", "type": "string", "info": ""},
                   {"key": "average age", "value": "300", "type": "string", "info": "It's quite a lot"}
                 ]
             }
