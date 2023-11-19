@@ -3,9 +3,10 @@ package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persis
 import dev.enginecode.eccommons.exception.ResourceNotFoundException;
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.eccommons.structures.model.DataModel;
+import dev.enginecode.weeds.plantcareservice.plantcatalog.application.domain.ApplicationPorts;
 import dev.enginecode.eccommons.structures.model.Entry;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.model.DataModelRecord;
-import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
+import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.PresentationPorts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,7 +25,7 @@ import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_F
 import static dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.InfrastructureConfiguration.DATA_MODEL_CACHE_MANAGER_NAME;
 
 @Repository
-public class GetDataModelAdapter implements GetDataModelPort {
+public class GetDataModelAdapter implements PresentationPorts.GetDataModelPort, ApplicationPorts.GetDataModelPort {
     private final static Logger logger = LogManager.getLogger(GetDataModelAdapter.class);
     JsonRepository<UUID> repository;
 

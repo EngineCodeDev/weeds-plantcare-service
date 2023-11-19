@@ -2,14 +2,14 @@ package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persis
 
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.model.PlantClassViewRecord;
+import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.PresentationPorts;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.PlantClassView;
-import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.CreatePlantClassViewPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public class CreatePlantClassViewAdapter implements CreatePlantClassViewPort {
+public class CreatePlantClassViewAdapter implements PresentationPorts.CreatePlantClassViewPort {
     JsonRepository<UUID> repository;
 
     public CreatePlantClassViewAdapter(JsonRepository<UUID> repository) {

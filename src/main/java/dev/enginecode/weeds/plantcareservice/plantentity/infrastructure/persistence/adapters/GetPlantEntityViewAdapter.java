@@ -2,14 +2,14 @@ package dev.enginecode.weeds.plantcareservice.plantentity.infrastructure.persist
 
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.weeds.plantcareservice.plantentity.infrastructure.persistence.model.PlantEntityViewRecord;
+import dev.enginecode.weeds.plantcareservice.plantentity.presentation.PresentationPorts;
 import dev.enginecode.weeds.plantcareservice.plantentity.presentation.model.PlantEntityView;
-import dev.enginecode.weeds.plantcareservice.plantentity.presentation.ports.GetPlantEntityViewPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public class GetPlantEntityViewAdapter implements GetPlantEntityViewPort {
+public class GetPlantEntityViewAdapter implements PresentationPorts.GetPlantEntityViewPort {
     JsonRepository<UUID> repository;
 
     GetPlantEntityViewAdapter(JsonRepository<UUID> repository) {
