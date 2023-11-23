@@ -9,3 +9,5 @@ server:
   port: 8090
   servlet:
     context-path: /plantcare-service
+logging.level:
+    com.querydsl.sql: DEBUG
