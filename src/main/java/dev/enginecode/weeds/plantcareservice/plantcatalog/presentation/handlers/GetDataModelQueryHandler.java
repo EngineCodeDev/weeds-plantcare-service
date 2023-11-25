@@ -7,7 +7,6 @@ import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.G
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
-import static dev.enginecode.weeds.plantcareservice.plantcatalog.PlantCatalogConfiguration.DATA_MODEL_CACHE_MANAGER_NAME;
 
 @Component
 public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetDataModelQuery> {

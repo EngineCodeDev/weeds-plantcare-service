@@ -7,5 +7,6 @@ import java.util.UUID;
 
 public interface GetPlantClassViewPort {
     PlantClassView findById(UUID id);
+
     List<PlantClassView> findAll();
 }
