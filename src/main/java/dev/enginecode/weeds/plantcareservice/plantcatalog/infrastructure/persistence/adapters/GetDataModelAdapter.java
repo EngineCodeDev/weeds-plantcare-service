@@ -7,6 +7,7 @@ import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persist
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import static dev.enginecode.eccommons.exception.EngineCodeExceptionGroup.INFRASTRUCTURE_ERROR;
 import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_FOUND_ANY;
 import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_FOUND_ANY_DETAILED;
+import static dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.InfrastructureConfiguration.DATA_MODEL_CACHE_MANAGER_NAME;
 
 @Repository
 public class GetDataModelAdapter implements GetDataModelPort {
@@ -26,6 +28,7 @@ public class GetDataModelAdapter implements GetDataModelPort {
     }
 
     @Override
+    @Cacheable(DATA_MODEL_CACHE_MANAGER_NAME)
     public DataModel findOne() {
         List<DataModelRecord> recordList = repository.findAll(DataModelRecord.class);
         if (!recordList.isEmpty()) {

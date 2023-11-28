@@ -4,7 +4,6 @@ import dev.enginecode.eccommons.cqrs.query.QueryHandler;
 import dev.enginecode.eccommons.structures.model.DataModel;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.GetDataModelQuery;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 
@@ -18,7 +17,6 @@ public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetData
     }
 
     @Override
-    @Cacheable(DATA_MODEL_CACHE_MANAGER_NAME)
     public DataModel handle(GetDataModelQuery query) {
         return port.findOne();
     }
