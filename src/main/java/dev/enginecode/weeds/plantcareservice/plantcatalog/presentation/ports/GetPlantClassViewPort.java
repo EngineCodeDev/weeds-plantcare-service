@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface GetPlantClassViewPort {
+
     PlantClassView findById(UUID id);
+
+    List<PlantClassView> findBySpecies(String species);
+
+    List<PlantClassView> findByGenus(String genus);
+
     List<PlantClassView> findAll();
 }

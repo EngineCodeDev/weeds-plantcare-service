@@ -4,10 +4,7 @@ import dev.enginecode.eccommons.structures.model.Response;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.handlers.GetPlantClassViewQueryHandler;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.PlantClassView;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.GetPlantClassViewQuery;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -21,8 +18,13 @@ public class GetPlantClassViewEndpoint {
     }
 
     @GetMapping
-    Response<PlantClassView> getAll() {
-        return handler.handle(GetPlantClassViewQuery.all());
+    Response<PlantClassView> getAll(
+            @RequestParam(required = false) String species,
+            @RequestParam(required = false) String genus
+    ) {
+        return species != null ? handler.handle(GetPlantClassViewQuery.bySpecies(species))
+                : genus != null ? handler.handle(GetPlantClassViewQuery.byGenus(genus))
+                : handler.handle(GetPlantClassViewQuery.all());
     }
 
     @GetMapping("/{id}")
