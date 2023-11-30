@@ -20,7 +20,11 @@ public class GetPlantClassViewQueryHandler implements QueryHandler<Response<Plan
 
     @Override
     public Response<PlantClassView> handle(GetPlantClassViewQuery query) {
-        List<PlantClassView> items = query.hasId() ? List.of(port.findById(query.id())) : port.findAll();
+        List<PlantClassView> items =
+                query.hasId() ? List.of(port.findById(query.id()))
+                        : query.hasSpecies() ? port.findBySpecies(query.species())
+                        : query.hasGenus() ? port.findByGenus(query.genus())
+                        : port.findAll();
         return new Response<>(items);
     }
 }

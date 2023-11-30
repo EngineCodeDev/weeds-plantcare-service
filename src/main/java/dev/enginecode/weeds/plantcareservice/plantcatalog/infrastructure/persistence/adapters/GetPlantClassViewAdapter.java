@@ -28,9 +28,30 @@ public class GetPlantClassViewAdapter implements GetPlantClassViewPort {
     }
 
     @Override
+    public List<PlantClassView> findBySpecies(String species) {
+        List<PlantClassViewRecord> records = repository.findByVirtualColumnLikeIgnoreCase(
+                "species", "%"+species+"%", PlantClassViewRecord.class
+        );
+        return toPlantClassViewList(records);
+    }
+
+    @Override
+    public List<PlantClassView> findByGenus(String genus) {
+        List<PlantClassViewRecord> records = repository.findByVirtualColumnLikeIgnoreCase(
+                "genus", "%"+genus+"%", PlantClassViewRecord.class
+        );
+        return toPlantClassViewList(records);
+    }
+
+    @Override
     public List<PlantClassView> findAll() {
         List<PlantClassViewRecord> records = repository.findAll(PlantClassViewRecord.class);
-        return records.stream()
+        return toPlantClassViewList(records);
+    }
+
+
+    private List<PlantClassView> toPlantClassViewList(List<PlantClassViewRecord> recordList) {
+        return recordList.stream()
                 .map(record -> new PlantClassView(record.id(), record.entries()))
                 .toList();
     }
