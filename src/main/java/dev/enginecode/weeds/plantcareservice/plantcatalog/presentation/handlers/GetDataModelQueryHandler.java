@@ -6,6 +6,7 @@ import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.Get
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.queries.GetDataModelQuery;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetDataModelQuery> {
 

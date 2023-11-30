@@ -1,0 +1,5 @@
+### Get plant-class
+GET localhost:8090/plantcare-service/plant-classes/0a0279a1-6182-4ad6-ae81-fd783528ac18
+
+### Get DataModel
+GET localhost:8090/plantcare-service/data-model

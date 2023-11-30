@@ -7,7 +7,7 @@ plugins {
 	java
 	id("idea")
 	id("groovy")
-	id("org.springframework.boot") version "3.1.5"
+	id("org.springframework.boot") version "3.2.0"
 	id("io.spring.dependency-management") version "1.1.3"
 	id("maven-publish")
 }
@@ -70,11 +70,13 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web:3.1.5")
-	implementation("org.springframework.boot:spring-boot-starter-jdbc:3.1.5")
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.1.5")
+	implementation("org.springframework.boot:spring-boot-starter-web:3.2.0")
+	implementation("org.springframework.boot:spring-boot-starter-jdbc:3.2.0")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.0")
+	implementation ("org.springframework.boot:spring-boot-starter-cache:3.2.0")
 	implementation("org.postgresql:postgresql:42.6.0")
 	implementation("dev.enginecode:ec-commons:0.0.1-SNAPSHOT")
+	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools:3.1.5")
 

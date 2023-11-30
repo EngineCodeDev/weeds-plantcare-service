@@ -11,3 +11,7 @@ server:
     context-path: /plantcare-service
 logging.level:
     com.querydsl.sql: DEBUG
+cache:
+  caffeine:
+    expireAfterWriteDurationInMinutes: 1
+    maximumSize: 2
