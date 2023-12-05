@@ -3,6 +3,7 @@ package dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persis
 import dev.enginecode.eccommons.exception.ResourceNotFoundException;
 import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.eccommons.structures.model.DataModel;
+import dev.enginecode.eccommons.structures.model.Entry;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.model.DataModelRecord;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.ports.GetDataModelPort;
 import org.apache.logging.log4j.LogManager;
@@ -10,8 +11,13 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static dev.enginecode.eccommons.exception.EngineCodeExceptionGroup.INFRASTRUCTURE_ERROR;
 import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_FOUND_ANY_DETAILED;
@@ -41,5 +47,21 @@ public class GetDataModelAdapter implements GetDataModelPort {
         }
         logger.error(String.format(NOT_FOUND_ANY_DETAILED, recordList + " for type: " + DataModelRecord.class));
         throw new ResourceNotFoundException(INFRASTRUCTURE_ERROR, String.format(NOT_FOUND_ANY_DETAILED, "Data Model"));
+    }
+
+    @Override
+    public DataModel findByGroups(Set<String> groups) {
+
+        DataModel one = findOne();
+        LinkedHashMap<String, DataModel.EntrySettings> settings = one.entrySettings();
+
+        LinkedHashMap<String, LinkedHashSet<String>> contents = one.groupContents().entrySet()
+                .stream()
+                .filter(x-> groups.contains(x.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(key1, key2)->key1, LinkedHashMap::new));
+
+        LinkedHashMap<String, LinkedHashSet<Entry<?>>> options = one.enumOptions();
+
+        return null;
     }
 }

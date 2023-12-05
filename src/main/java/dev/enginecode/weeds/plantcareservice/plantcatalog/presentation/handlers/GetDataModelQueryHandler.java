@@ -18,6 +18,7 @@ public class GetDataModelQueryHandler implements QueryHandler<DataModel, GetData
 
     @Override
     public DataModel handle(GetDataModelQuery query) {
-        return port.findOne();
+
+        return  query.hasGroups()? port.findByGroups(query.groups()) : port.findOne();
     }
 }
