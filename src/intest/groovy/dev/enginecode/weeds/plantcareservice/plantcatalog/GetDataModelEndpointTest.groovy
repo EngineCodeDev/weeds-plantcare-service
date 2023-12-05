@@ -5,7 +5,9 @@ import dev.enginecode.weeds.plantcareservice.intestspec.IntestSpecification
 import org.skyscreamer.jsonassert.JSONAssert
 import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.http.HttpStatus
+import org.springframework.test.annotation.DirtiesContext
 
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class GetDataModelEndpointTest extends IntestSpecification {
 
     private static final EXPECTED_JSON = """
