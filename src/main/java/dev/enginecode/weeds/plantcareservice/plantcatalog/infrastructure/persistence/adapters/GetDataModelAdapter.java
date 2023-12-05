@@ -14,7 +14,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static dev.enginecode.eccommons.exception.EngineCodeExceptionGroup.INFRASTRUCTURE_ERROR;
-import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_FOUND_ANY;
 import static dev.enginecode.eccommons.exception.ResourceNotFoundException.NOT_FOUND_ANY_DETAILED;
 import static dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.InfrastructureConfiguration.DATA_MODEL_CACHE_MANAGER_NAME;
 
@@ -41,6 +40,6 @@ public class GetDataModelAdapter implements GetDataModelPort {
             );
         }
         logger.error(String.format(NOT_FOUND_ANY_DETAILED, recordList + " for type: " + DataModelRecord.class));
-        throw new ResourceNotFoundException(INFRASTRUCTURE_ERROR, NOT_FOUND_ANY);
+        throw new ResourceNotFoundException(INFRASTRUCTURE_ERROR, String.format(NOT_FOUND_ANY_DETAILED, "Data Model"));
     }
 }

@@ -75,8 +75,8 @@ class GetDataModelEndpointTest extends IntestSpecification {
 
         then:
         responseEntity.statusCode == HttpStatus.NOT_FOUND
-        responseEntity.body.code() == "RESOURCE_NOT_FOUND"
-        responseEntity.body.message() == "Data Model not found"
+        responseEntity.body.code() == "INFRASTRUCTURE_ERROR"
+        responseEntity.body.message() == "'Data Model' was not found."
     }
 }
 
