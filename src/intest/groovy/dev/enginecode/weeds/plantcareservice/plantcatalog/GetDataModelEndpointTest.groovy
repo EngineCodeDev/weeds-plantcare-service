@@ -7,7 +7,7 @@ import org.skyscreamer.jsonassert.JSONCompareMode
 import org.springframework.http.HttpStatus
 import org.springframework.test.annotation.DirtiesContext
 
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+
 class GetDataModelEndpointTest extends IntestSpecification {
 
     private static final EXPECTED_JSON = """
@@ -27,7 +27,7 @@ class GetDataModelEndpointTest extends IntestSpecification {
           "groupContents": {
             "potted plant": ["genus", "family", "commonNames", "lifecycle", "origin", "something", "wikiLinks", "imageSource", "somethingNew"],
             "trees": ["genus", "family", "commonNames"],
-            "ground plant": ["genus", "family", "commonNames"]
+            "ground plant": ["genus", "family", "commonNames", "lifecycle"]
           },
           "enumOptions": {
             "origin": [
@@ -53,6 +53,29 @@ class GetDataModelEndpointTest extends IntestSpecification {
         }
     """
 
+    private static final BY_GROUPS_EXPECTED_JSON = """
+        {
+          "id": "8fd1980d-3151-4d00-8495-5a10bf8e7099",
+          "entrySettings": {
+            "genus": {"type": "string", "format": null, "optionsRef": null, "required": true, "readOnly": true},
+            "family": {"type": "string", "format": null, "optionsRef": null, "required": true, "readOnly": true},
+            "commonNames": {"type": "string_array", "format": null, "optionsRef": null, "required": true, "readOnly": false},
+            "lifecycle": {"type": "enum_key", "format": "dictionary", "optionsRef": "lifecycle", "required": true, "readOnly": false}
+          },
+          "groupContents": {
+            "trees": ["genus", "family", "commonNames"],
+            "ground plant": ["genus", "family", "commonNames", "lifecycle"]
+          },
+          "enumOptions": {
+            "lifecycle": [
+              {"key": "lifecycle_annual", "value": "Annual", "info": ""},
+              {"key": "lifecycle_perennial", "value": "Perennial", "info": ""},
+              {"key": "lifecycle_biennial", "value": "Biennial", "info": ""}
+            ]
+          }
+        }
+    """
+
 
     def "should get data model from database"() {
         given:
@@ -60,14 +83,40 @@ class GetDataModelEndpointTest extends IntestSpecification {
 
         when:
         def responseEntity = testRestTemplate.getForEntity(
-                "http://localhost:$port/plantcare-service/data-model",
+                "http://localhost:$port/plantcare-service/data-model$query",
                 String.class
         )
 
         then:
         JSONAssert.assertEquals(EXPECTED_JSON, responseEntity.body, JSONCompareMode.LENIENT)
+
+        where:
+        description         | query
+        "No query provided" | ""
+        "Empty query"       | "?query="
     }
 
+    def "should get data model by groups"() {
+        given:
+        dbAdmin.runSqlFile("db/runtime-sql/gc-data-model-dml.sql")
+
+        when:
+        def responseEntity = testRestTemplate.getForEntity(
+                "http://localhost:$port/plantcare-service/data-model$query",
+                String.class
+        )
+
+        then:
+        JSONAssert.assertEquals(BY_GROUPS_EXPECTED_JSON, responseEntity.body, JSONCompareMode.LENIENT)
+
+        where:
+        description                          | query
+        "Query with existing groups"         | "?groups=trees,ground plant"
+        "Query with one non existing groups" | "?groups=trees,ground plant,non existing"
+        "Query with duplicated groups"       | "?groups=trees,ground plant,trees"
+    }
+
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.BEFORE_METHOD)
     def "should throw exception when data model not found"() {
         when:
         def responseEntity = testRestTemplate.getForEntity(
