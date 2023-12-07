@@ -71,7 +71,7 @@ public class GetDataModelAdapter implements GetDataModelPort {
                 .stream()
                 .filter(options -> filteredContent.contains(options.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
-        
+
         return new DataModel(one.id(), entrySettings, groupContents, enumOptions);
     }
 
