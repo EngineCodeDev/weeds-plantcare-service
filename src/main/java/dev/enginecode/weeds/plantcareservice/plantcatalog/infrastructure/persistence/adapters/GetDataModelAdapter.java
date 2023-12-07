@@ -51,11 +51,9 @@ public class GetDataModelAdapter implements GetDataModelPort {
 
     @Override
     public DataModel findByGroups(Set<String> groups) {
-
         DataModel one = findOne();
-        LinkedHashMap<String, DataModel.EntrySettings> settings = one.entrySettings();
 
-        LinkedHashMap<String, LinkedHashSet<String>> contents = one.groupContents().entrySet()
+        LinkedHashMap<String, LinkedHashSet<String>> groupContents = one.groupContents().entrySet()
                 .stream()
                 .filter(x -> groups.contains(x.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
