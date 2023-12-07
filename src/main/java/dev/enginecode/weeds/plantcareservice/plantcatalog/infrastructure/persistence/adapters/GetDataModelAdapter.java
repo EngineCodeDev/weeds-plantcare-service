@@ -57,11 +57,22 @@ public class GetDataModelAdapter implements GetDataModelPort {
 
         LinkedHashMap<String, LinkedHashSet<String>> contents = one.groupContents().entrySet()
                 .stream()
-                .filter(x-> groups.contains(x.getKey()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(key1, key2)->key1, LinkedHashMap::new));
+                .filter(x -> groups.contains(x.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
 
-        LinkedHashMap<String, LinkedHashSet<Entry<?>>> options = one.enumOptions();
+        Set<String> filteredContent = groupContents.values().stream().flatMap(Set::stream).collect(Collectors.toSet());
 
-        return null;
+        LinkedHashMap<String, DataModel.EntrySettings> entrySettings = one.entrySettings().entrySet()
+                .stream()
+                .filter(entry -> filteredContent.contains(entry.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
+
+        LinkedHashMap<String, LinkedHashSet<Entry<?>>> enumOptions = one.enumOptions().entrySet()
+                .stream()
+                .filter(options -> filteredContent.contains(options.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
+        
+        return new DataModel(one.id(), entrySettings, groupContents, enumOptions);
     }
+
 }
