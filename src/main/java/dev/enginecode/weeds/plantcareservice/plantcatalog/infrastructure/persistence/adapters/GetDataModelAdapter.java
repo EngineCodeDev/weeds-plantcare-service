@@ -55,7 +55,7 @@ public class GetDataModelAdapter implements GetDataModelPort {
 
         LinkedHashMap<String, LinkedHashSet<String>> groupContents = one.groupContents().entrySet()
                 .stream()
-                .filter(x -> groups.contains(x.getKey()))
+                .filter(groupContent -> groups.contains(groupContent.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (key1, key2) -> key1, LinkedHashMap::new));
 
         Set<String> filteredContent = groupContents.values().stream().flatMap(Set::stream).collect(Collectors.toSet());
