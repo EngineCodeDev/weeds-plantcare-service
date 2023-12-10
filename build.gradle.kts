@@ -73,9 +73,10 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web:3.2.0")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc:3.2.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.0")
+	implementation("org.springframework.boot:spring-boot-starter-validation:3.2.0")
 	implementation ("org.springframework.boot:spring-boot-starter-cache:3.2.0")
 	implementation("org.postgresql:postgresql:42.6.0")
-	implementation("dev.enginecode:ec-commons:0.0.2-SNAPSHOT")
+	implementation("dev.enginecode:ec-commons:0.0.3-SNAPSHOT")
 	implementation("com.github.ben-manes.caffeine:caffeine:3.1.8")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools:3.1.5")

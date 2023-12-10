@@ -12,10 +12,8 @@ class CreatePlantClassEndpointTest extends IntestSpecification {
         {
           "groups": ["trees"],
           "entries": [
-            {"key": "name", "value": "Oak", "type": "string", "info": "Very popular tree"},
             {"key": "species", "value": "Quercus robur", "type": "string", "info": ""},
-            {"key": "genus", "value": "Quercus", "type": "string", "info": ""},
-            {"key": "average age", "value": "300", "type": "string", "info": "It's quite a lot"}
+            {"key": "genus", "value": "Quercus", "type": "string", "info": ""}
           ]
         }
       """
@@ -25,15 +23,17 @@ class CreatePlantClassEndpointTest extends IntestSpecification {
           "items": [
             {
               "entries": [
-                  {"key": "name", "value": "Oak", "type": "string", "info": "Very popular tree"},
                   {"key": "species", "value": "Quercus robur", "type": "string", "info": ""},
-                  {"key": "genus", "value": "Quercus", "type": "string", "info": ""},
-                  {"key": "average age", "value": "300", "type": "string", "info": "It's quite a lot"}
+                  {"key": "genus", "value": "Quercus", "type": "string", "info": ""}
                 ]
             }
           ]
         }
       """
+
+    def setup() {
+        dbAdmin.runSqlFile("db/runtime-sql/gc-data-model-dml.sql")
+    }
 
     def "should save plant class to database"() {
         when:
