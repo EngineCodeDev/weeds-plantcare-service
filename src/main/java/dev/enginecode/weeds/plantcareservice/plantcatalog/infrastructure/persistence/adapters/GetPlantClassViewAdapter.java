@@ -4,6 +4,7 @@ import dev.enginecode.eccommons.infrastructure.json.repository.JsonRepository;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.infrastructure.persistence.model.PlantClassViewRecord;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.PresentationPorts;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.PlantClassView;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

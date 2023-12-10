@@ -4,6 +4,7 @@ import dev.enginecode.eccommons.structures.model.DataModel;
 import dev.enginecode.weeds.plantcareservice.plantcatalog.presentation.model.PlantClassView;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public interface PresentationPorts {
@@ -13,6 +14,8 @@ public interface PresentationPorts {
 
     interface GetDataModelPort {
         DataModel findOne();
+
+        DataModel findByGroups(Set<String> groups);
     }
 
     interface GetPlantClassViewPort {
